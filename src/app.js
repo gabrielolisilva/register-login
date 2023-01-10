@@ -2,6 +2,8 @@ require("dotenv").config();
 
 const bodyParser = require("body-parser");
 
+const session = require("express-session");
+
 const express = require("express");
 const app = express();
 
@@ -14,6 +16,16 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.set("trust proxy", 1); // trust first proxy
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
+  })
+);
 
 app.use("/", appRoutes);
 

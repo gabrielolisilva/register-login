@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   getRegisterPage,
   getSuccessPage,
+  getLogOutPage,
   getLoginPage,
   getHomePage,
   getUsersPage,
@@ -11,17 +12,19 @@ const {
   postLoginForm,
 } = require("../controllers/controllers");
 
-const checkToken = require("../middleware/checkToken");
+const loginRequired = require("../middleware/loginRequired");
 
 router.route("/").get(getRegisterPage);
 
 router.route("/success").get(getSuccessPage);
 
+router.route("/logout").get(getLogOutPage);
+
 router.route("/login").get(getLoginPage);
 
 router.route("/home").get(getHomePage);
 
-router.route("/users").get(getUsersPage);
+router.route("/users").get(loginRequired, getUsersPage);
 
 router.route("/").post(postRegisterForm);
 

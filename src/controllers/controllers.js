@@ -3,6 +3,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 
+if (typeof window != "undefined") {
+  localStorage.setItem("isLoggedIn", false);
+}
+
 const getRegisterPage = (req, res) => {
   res
     .status(200)
@@ -11,6 +15,10 @@ const getRegisterPage = (req, res) => {
 
 const getSuccessPage = (req, res) => {
   res.status(200).sendFile(path.join(__dirname, "../.././public/success.html"));
+};
+
+const getLogOutPage = (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, "../.././public/logout.html"));
 };
 
 const getLoginPage = (req, res) => {
@@ -93,21 +101,17 @@ const postLoginForm = async (req, res) => {
   try {
     if (email === user.email && checkPassword) {
       res.status(201).redirect("/home");
+      localStorage.getItem("isLoggedIn", true);
     }
   } catch (error) {
     res.status(500).send("Usuário inválido");
   }
-
-  /*if (email === user.email && checkPassword) {
-    res.status(201).redirect("/home");
-  } else {
-    res.status(500).send("Usuário inválido");
-  } */
 };
 
 module.exports = {
   getRegisterPage,
   getSuccessPage,
+  getLogOutPage,
   getLoginPage,
   getHomePage,
   getUsersPage,
