@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-y: hidden;
+}
+
+body {
+  background-color: rgb(10, 221, 211);
+}
+
+.main-content {
+  background-color: white;
+  margin: 200px auto;
+  max-width: 490px;
+  max-height: 900px;
+  border-radius: 20px;
+}
+
+.main-content > h1 {
+  text-align: center;
+  padding: 20px;
+}
+
+.main-content > p {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+form {
+  margin-left: 40px;
+}
+
+form > label {
+  display: block;
+  padding: 10px 0;
+  font-size: 20px;
+}
+
+form > input {
+  padding: 10px;
+  width: 400px;
+}
+
+form > input:last-child {
+  margin: 40px 0;
+}
+
+.main-content > div {
+  text-align: center;
+  padding-bottom: 10px;
+}

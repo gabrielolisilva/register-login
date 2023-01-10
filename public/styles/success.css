@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-y: hidden;
+}
+
+body {
+  background-color: rgb(10, 221, 211);
+}
+
+.main-content {
+  background-color: white;
+  margin: 100px auto;
+  max-width: 450px;
+  max-height: 900px;
+  border-radius: 20px;
+}
+
+.main-content > h1 {
+  text-align: center;
+  padding: 20px;
+}
