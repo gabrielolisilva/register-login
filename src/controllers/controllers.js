@@ -18,6 +18,7 @@ const getSuccessPage = (req, res) => {
 };
 
 const getLogOutPage = (req, res) => {
+  req.session.destroy();
   res.status(200).sendFile(path.join(__dirname, "../.././public/logout.html"));
 };
 
@@ -100,8 +101,8 @@ const postLoginForm = async (req, res) => {
 
   try {
     if (email === user.email && checkPassword) {
+      req.session.usuario = user;
       res.status(201).redirect("/home");
-      localStorage.getItem("isLoggedIn", true);
     }
   } catch (error) {
     res.status(500).send("Usuário inválido");

@@ -12,7 +12,7 @@ const {
   postLoginForm,
 } = require("../controllers/controllers");
 
-const loginRequired = require("../middleware/loginRequired");
+const loginRequested = require("../middleware/loginRequested");
 
 router.route("/").get(getRegisterPage);
 
@@ -24,7 +24,7 @@ router.route("/login").get(getLoginPage);
 
 router.route("/home").get(getHomePage);
 
-router.route("/users").get(loginRequired, getUsersPage);
+router.route("/users").get(loginRequested, getUsersPage);
 
 router.route("/").post(postRegisterForm);
 
