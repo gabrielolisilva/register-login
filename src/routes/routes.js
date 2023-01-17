@@ -10,6 +10,7 @@ const {
   getUsersPage,
   postRegisterForm,
   postLoginForm,
+  postUsersForm,
 } = require("../controllers/controllers");
 
 const loginRequested = require("../middleware/loginRequested");
@@ -29,5 +30,7 @@ router.route("/users").get(loginRequested, getUsersPage);
 router.route("/").post(postRegisterForm);
 
 router.route("/login").post(postLoginForm);
+
+router.route("/users").post(postUsersForm);
 
 module.exports = router;

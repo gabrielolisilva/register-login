@@ -1,16 +1,18 @@
 const Register = require("../models/model");
+const Contact = require("../models/contactModel");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const path = require("path");
 
-if (typeof window != "undefined") {
-  localStorage.setItem("isLoggedIn", false);
-}
-
 const getRegisterPage = (req, res) => {
-  res
-    .status(200)
-    .sendFile(path.join(__dirname, "../.././public/register.html"));
+  if (req.session.usuario) {
+    res
+      .status(200)
+      .sendFile(path.join(__dirname, "../.././public/homeLogado.html"));
+  } else {
+    res
+      .status(200)
+      .sendFile(path.join(__dirname, "../.././public/register.html"));
+  }
 };
 
 const getSuccessPage = (req, res) => {
@@ -109,6 +111,42 @@ const postLoginForm = async (req, res) => {
   }
 };
 
+const postUsersForm = async (req, res) => {
+  const { nome, sobrenome, email } = req.body;
+  if (!nome) {
+    return res.status(422).json({ msg: "O nome é obrigatório" });
+  }
+
+  if (!sobrenome) {
+    return res.status(422).json({ msg: "O sobrenome é obrigatório" });
+  }
+
+  if (!email) {
+    return res.status(422).json({ msg: "O email é obrigatório" });
+  }
+
+  const alreadyExists = await Contact.findOne({ email: email });
+
+  if (alreadyExists) {
+    return res
+      .status(422)
+      .json({ msg: "Já existe um contato igual no banco de dados" });
+  }
+
+  const contact = new Contact({
+    nome,
+    sobrenome,
+    email,
+  });
+
+  try {
+    await contact.save();
+    res.status(201).redirect("/users");
+  } catch (error) {
+    res.status(500).json({ msg: error });
+  }
+};
+
 module.exports = {
   getRegisterPage,
   getSuccessPage,
@@ -118,4 +156,5 @@ module.exports = {
   getUsersPage,
   postRegisterForm,
   postLoginForm,
+  postUsersForm,
 };

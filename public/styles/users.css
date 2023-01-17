@@ -1,0 +1,25 @@
+h1 {
+  text-align: center;
+}
+
+form {
+  background-color: rgb(8, 180, 223);
+  width: 500px;
+  height: 300px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 15px;
+}
+
+form input {
+  margin: auto;
+  width: 250px;
+  height: 20px;
+}
+
+form label {
+  margin: auto;
+  margin-bottom: 2px;
+}
